@@ -19,13 +19,15 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(
-      isLoading => this.isLoading = this.isLoading
+      isLoading => this.isLoading = isLoading
     );
     this.today = new Date();
   }
 
   ngOnDestroy() {
-    this.loadingSubs.unsubscribe();
+    if (this.loadingSubs) {
+      this.loadingSubs.unsubscribe();
+    }
   }
 
   onSubmit(form: NgForm) {
